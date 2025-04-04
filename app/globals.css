@@ -29,7 +29,8 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: url('https://assets.grok.com/users/1c12ac9b-707d-402c-9987-b2e0d44b59bf/generated/VVp9r137ut4leSFX/image.jpg') no-repeat;
+  background: url('https://assets.grok.com/users/1c12ac9b-707d-402c-9987-b2e0d44b59bf/generated/VVp9r137ut4leSFX/image.jpg');
+  background-repeat:  no-repeat;
   background-size: cover;
 }
 
