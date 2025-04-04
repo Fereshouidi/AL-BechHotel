@@ -1,103 +1,130 @@
-import Image from "next/image";
+'use client';
+import './mainPage.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+import react, { CSSProperties, useRef, useState } from 'react';
+import axios from 'axios';
+import speakerIMG from '@/images/468736129_4036389116596333_8844728601513177571_n (1).jpg';
+import LoadingForSendBTN from '@/icon/loadingForSendBTN';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const [userMSG, setUserMSG] = useState<string>('');
+  const [gemininswer, setGeminiAnswer] = useState<string>('');
+  const [textDirection, setTextDirection] = useState<'rtl' | 'ltr'>('ltr');
+  const [isWaitingForAnswer, setIsWaitingForAnswer] = useState<boolean>(false);
+
+  const inputMessageRef = useRef<HTMLInputElement>(null);
+  const [isThereAnswer, setIsTherAnswer] = useState<boolean>(false);
+
+//   const response = await fetch(url + '/edit/website', {
+//     method: 'POST', 
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//         userMSG: inputMessage 
+//     })
+// });
+
+  const handleBtnCliked = async () => {
+    if (inputMessageRef.current) {
+      setIsWaitingForAnswer(true);
+      setUserMSG(inputMessageRef.current.value);
+      // console.log(inputMessageRef.current.value);
+      try {
+        const response = await axios.post('http://localhost:3000/send', {userMSG});
+        const data = response.data;
+        setIsTherAnswer(true);
+        setTextDirection(data.includes('rlrl') ? 'rtl' : 'ltr');
+        const separatorIndex = data.indexOf('[SEPARATION]');
+        const messageForUser = data.slice(0, separatorIndex).trim();
+
+        setGeminiAnswer(messageForUser);
+        setIsWaitingForAnswer(false)
+
+        console.log(data);
+        
+      } catch (err) {
+        throw err;
+      }
+
+    }
+  }
+
+  const styleImage: CSSProperties = {
+    // right: textDirection == 'rtl' ? '0px' : '',
+    // left: textDirection == 'ltr' ? '0px' : '',
+    direction: textDirection
+  }
+  const styleagentText: CSSProperties = {
+    textAlign: textDirection == 'rtl' ? 'right' : 'left'
+  }
+
+  return (
+    <div className="page">
+
+      {isThereAnswer ? 
+        <div id='answer-sec'>
+          <div id='speaker' style={styleImage}>
+            <img src={speakerIMG.src} />
+            <h5>fares ai</h5>
+          </div>
+          <p id='answer' style={styleagentText}>{gemininswer}</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      : null
+      }
+
+      <div id={isThereAnswer ? 'chat-div-in-bottom' : 'chat-div'} >
+
+        <div id='options'>
+          <h5 className='option'>ask for example 1</h5>
+          <h5 className='option'>ask for example 2</h5>
+          <h5 className='option'>ask for example 3</h5>
+        </div>
+
+        <div id="input-div">
+          <input type="text" placeholder="ask for anything ..." ref={inputMessageRef}/>
+          <div className='button' onClick={handleBtnCliked}>
+            {
+              isWaitingForAnswer ? 
+                <LoadingForSendBTN/> :
+                <FontAwesomeIcon icon={faPaperPlane} className='icon'/>
+            }
+            
+          </div> 
+        </div>       
+
+      </div>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// await fetch('http://localhost:3000/send', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     userMSG
+//   })
+// })
+// .then(async data => console.log(await data.json()))
+// .catch(err => console.log(err))
