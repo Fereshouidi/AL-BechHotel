@@ -2,7 +2,7 @@
 import './mainPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import react, { CSSProperties, useRef, useState } from 'react';
+import { CSSProperties, useRef, useState } from 'react';
 import axios from 'axios';
 import speakerIMG from '@/images/468736129_4036389116596333_8844728601513177571_n (1).jpg';
 import LoadingForSendBTN from '@/icon/loadingForSendBTN';
