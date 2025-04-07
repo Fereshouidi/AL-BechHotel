@@ -2,10 +2,11 @@
 import './mainPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import { CSSProperties, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import speakerIMG from '@/images/468736129_4036389116596333_8844728601513177571_n (1).jpg';
 import LoadingForSendBTN from '@/icon/loadingForSendBTN';
+import { typeUser, typeConversation } from './types';
 
 export default function Home() {
 
@@ -13,37 +14,61 @@ export default function Home() {
   const [gemininswer, setGeminiAnswer] = useState<string>('');
   const [textDirection, setTextDirection] = useState<'rtl' | 'ltr'>('ltr');
   const [isWaitingForAnswer, setIsWaitingForAnswer] = useState<boolean>(false);
+  const [user, setUser] = useState< typeUser | null>(null);
+
+  useEffect(() => {
+      const userData = localStorage.getItem('userData');
+      console.log(userData);
+      
+      if (userData) {
+        setUser(JSON.parse(userData));
+      } else {
+        setUser(null);
+      }
+  }, [])
 
   const inputMessageRef = useRef<HTMLInputElement>(null);
   const [isThereAnswer, setIsTherAnswer] = useState<boolean>(false);
 
-//   const response = await fetch(url + '/edit/website', {
-//     method: 'POST', 
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//         userMSG: inputMessage 
-//     })
-// });
 
   const handleBtnCliked = async () => {
     if (inputMessageRef.current) {
       setIsWaitingForAnswer(true);
       setUserMSG(inputMessageRef.current.value);
-      // console.log(inputMessageRef.current.value);
       try {
-        const response = await axios.post('http://localhost:3000/send', {userMSG});
-        const data = response.data;
+        const response = await axios.post('http://localhost:3002/api/getAiAnswer', {
+          userId: user?._id,
+          message: inputMessageRef.current.value, 
+          conversationId : user?.conversation?._id
+      });
+        const answer = response.data.answer;
+        const updatedUser = response.data.updatedUser;
+        const updatedConversation = response.data.updatedConversation;
+
+        console.log({
+          answer, updatedUser, updatedConversation
+        });
+        
+
         setIsTherAnswer(true);
-        setTextDirection(data.includes('rlrl') ? 'rtl' : 'ltr');
-        const separatorIndex = data.indexOf('[SEPARATION]');
-        const messageForUser = data.slice(0, separatorIndex).trim();
+        setTextDirection(answer.includes('rlrl') ? 'rtl' : 'ltr');
+        const separatorIndex = answer.indexOf('[SEPARATION]');
+        const messageForUser = answer.slice(0, separatorIndex).trim();
+
+        setUser({
+          ...updatedUser,
+          conversation: updatedConversation
+        });
+
+        localStorage.setItem('userData', JSON.stringify({
+          ...updatedUser,
+          conversation: updatedConversation
+        }));
 
         setGeminiAnswer(messageForUser);
         setIsWaitingForAnswer(false)
 
-        console.log(data);
+        console.log(answer);
         
       } catch (err) {
         throw err;
