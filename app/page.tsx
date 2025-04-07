@@ -6,11 +6,11 @@ import { CSSProperties, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import speakerIMG from '@/images/468736129_4036389116596333_8844728601513177571_n (1).jpg';
 import LoadingForSendBTN from '@/icon/loadingForSendBTN';
-import { typeUser, typeConversation } from './types';
+import { typeUser } from './types';
 
 export default function Home() {
 
-  const [userMSG, setUserMSG] = useState<string>('');
+  // const [userMSG, setUserMSG] = useState<string>('');
   const [gemininswer, setGeminiAnswer] = useState<string>('');
   const [textDirection, setTextDirection] = useState<'rtl' | 'ltr'>('ltr');
   const [isWaitingForAnswer, setIsWaitingForAnswer] = useState<boolean>(false);
