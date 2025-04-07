@@ -34,7 +34,7 @@ export default function Home() {
   const handleBtnCliked = async () => {
     if (inputMessageRef.current) {
       setIsWaitingForAnswer(true);
-      setUserMSG(inputMessageRef.current.value);
+      // setUserMSG(inputMessageRef.current.value);
       try {
         const response = await axios.post('http://localhost:3002/api/getAiAnswer', {
           userId: user?._id,
