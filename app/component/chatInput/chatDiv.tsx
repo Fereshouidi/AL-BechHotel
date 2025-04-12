@@ -60,9 +60,10 @@ const ChatDiv = ({isThereAnswer, setIsTherAnswer, setTextDirection, isWaitingFor
     const handleBtnCliked = async () => {
         if (inputMessageRef.current) {
         setIsWaitingForAnswer(true);
-        // setUserMSG(inputMessageRef.current.value);
+        const ulr = "https://al-bech-hotel-back-end.vercel.app/api";
+        const localUrl = "http://localhost:3002/api"
         try {
-            const response = await axios.post('https://al-bech-hotel-back-end.vercel.app/api/getAiAnswer', {
+            const response = await axios.post( url + '/getAiAnswer', {
             userId: user?._id,
             message: inputMessageRef.current.value, 
             conversationId : user?.conversation?._id
