@@ -62,7 +62,7 @@ const ChatDiv = ({isThereAnswer, setIsTherAnswer, setTextDirection, isWaitingFor
         setIsWaitingForAnswer(true);
         // setUserMSG(inputMessageRef.current.value);
         try {
-            const response = await axios.post('http://localhost:3002/api/getAiAnswer', {
+            const response = await axios.post('https://al-bech-hotel-back-end.vercel.app/api/getAiAnswer', {
             userId: user?._id,
             message: inputMessageRef.current.value, 
             conversationId : user?.conversation?._id
