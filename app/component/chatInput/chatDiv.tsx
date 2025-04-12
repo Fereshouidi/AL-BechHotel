@@ -78,7 +78,6 @@ const ChatDiv = ({isThereAnswer, setIsTherAnswer, setTextDirection, isWaitingFor
 
             setIsTherAnswer(true);
             setTextDirection(answer.includes('rlrl') ? 'rtl' : 'ltr');
-            const separatorIndex = answer.indexOf('[SEPARATION]');
 
             const start = answer.indexOf('<mfc>') + '<mfc>'.length;
             const end = answer.indexOf('</mfc>');
