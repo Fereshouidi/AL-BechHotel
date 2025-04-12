@@ -60,7 +60,7 @@ const ChatDiv = ({isThereAnswer, setIsTherAnswer, setTextDirection, isWaitingFor
     const handleBtnCliked = async () => {
         if (inputMessageRef.current) {
         setIsWaitingForAnswer(true);
-        const ulr = "https://al-bech-hotel-back-end.vercel.app/api";
+        const url = "https://al-bech-hotel-back-end.vercel.app/api";
         const localUrl = "http://localhost:3002/api"
         try {
             const response = await axios.post( url + '/getAiAnswer', {
