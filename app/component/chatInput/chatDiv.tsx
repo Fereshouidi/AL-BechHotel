@@ -20,10 +20,9 @@ type params = {
     isReservationSecVisible: boolean
     setIsReservationSecVisible: (value: boolean) => void
 }
-const ChatDiv = ({isThereAnswer, setIsTherAnswer, setTextDirection, isWaitingForAnswer, setIsWaitingForAnswer, setGeminiAnswer, user, setUser, isReservationSecVisible, setIsReservationSecVisible}: params) => {
+const ChatDiv = ({isThereAnswer, setIsTherAnswer, setTextDirection, isWaitingForAnswer, setIsWaitingForAnswer, setGeminiAnswer, user, setUser, setIsReservationSecVisible}: params) => {
 
     const inputMessageRef = useRef<HTMLInputElement>(null);
-    const dragRef = useRef(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     
     useEffect(() => {
@@ -84,7 +83,6 @@ const ChatDiv = ({isThereAnswer, setIsTherAnswer, setTextDirection, isWaitingFor
             const start = answer.indexOf('<mfc>') + '<mfc>'.length;
             const end = answer.indexOf('</mfc>');
             const messageForUser = answer.slice(start, end);
-           // const messageForUser = answer.slice(0, separatorIndex).trim();
 
             setUser({
             ...updatedUser,

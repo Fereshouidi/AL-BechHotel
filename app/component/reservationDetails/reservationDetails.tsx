@@ -1,18 +1,17 @@
 'use client';
-import { CSSProperties, useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import './reservationDetails.css';
 
 const ReservationDetails = () => {
 
-        const dragRef = useRef(null);
         const [position, setPosition] = useState({ x: 0, y: 0 });
-        const [displayWindth, setDisplayWidth] = useState<number>(0);
+        //const [displayWindth, setDisplayWidth] = useState<number>(0);
       
         useEffect(() => {
             const centerX = window.innerWidth > 800 ? window.innerWidth / 4 : window.innerWidth /2;
             const centerY = window.innerWidth > 800 ? window.innerHeight / 3 : window.innerHeight /2;
             setPosition({ x: centerX, y: centerY });
-            setDisplayWidth(window.innerWidth);
+            //setDisplayWidth(window.innerWidth);
           }, []);
           
         const handleMouseDown = (e: MouseEvent | React.MouseEvent) => {
