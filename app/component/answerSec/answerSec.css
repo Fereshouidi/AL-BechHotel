@@ -1,0 +1,44 @@
+
+#answer-sec {
+    width: 540px;
+    max-width: 80vw;
+    background-color: rgb(219, 219, 219);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 25px;
+    border: 2px solid rgb(152, 152, 152);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 80vw;
+    margin-bottom: 20px;
+    position: absolute;
+    z-index: 998;
+}
+#answer-sec .header {
+    width: 100%;
+    border-radius: 20px;
+}
+#answer-sec #speaker {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* background-color: red; */
+    width: 100%;
+    border-radius: 20px;
+    /* position: absolute;
+    top: -10px; */
+}
+#answer-sec img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    margin: 10px;
+    /* right: -10px; */
+}
+#answer-sec #answer{
+    padding: 0 25px 25px 25px;
+    cursor: text;
+    /* background-color: red; */
+}

@@ -1,0 +1,117 @@
+.reservation-details-sec {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: rgb(219, 219, 219);
+    border: 2px solid rgb(152, 152, 152);
+    border-radius: 20px;
+    padding: 0;
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    min-width: 350px;
+    z-index: 10;
+}
+
+.reservation-details-sec .header {
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reservation-details-sec .content {
+    width: 100%;
+    border-radius: 20px;
+    padding: 1rem;
+    cursor: text;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+@media (min-width: 768px) {
+    .reservation-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Section Styles */
+.reservation-section {
+    margin-bottom: 1.5rem;
+}
+
+.reservation-section h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.25rem;
+}
+
+.reservation-section div {
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reservation-section span {
+    font-weight: 500;
+}
+
+/* Full-Width Section (e.g., Booking Details) */
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Action Buttons */
+.action-buttons {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .action-buttons {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.edit-button,
+.cancel-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.edit-button {
+    background-color: #2563eb;
+}
+
+.edit-button:hover {
+    background-color: #1d4ed8;
+}
+
+.cancel-button {
+    background-color: #dc2626;
+}
+
+.cancel-button:hover {
+    background-color: #b91c1c;
+}
+
+/* Fallback Message */
+.fallback-message {
+    text-align: center;
+    color: #6b7280;
+    padding: 2.5rem 0;
+}
